@@ -1,5 +1,16 @@
 # GitHub Recap
 
+<!-- Keep these links. Translations will automatically update with the README. -->
+[Deutsch](https://zdoc.app/de/Smartuil/Github-Recap) | 
+[English](https://zdoc.app/en/Smartuil/Github-Recap) | 
+[Español](https://zdoc.app/es/Smartuil/Github-Recap) | 
+[français](https://zdoc.app/fr/Smartuil/Github-Recap) | 
+[日本語](https://zdoc.app/ja/Smartuil/Github-Recap) | 
+[한국어](https://zdoc.app/ko/Smartuil/Github-Recap) | 
+[Português](https://zdoc.app/pt/Smartuil/Github-Recap) | 
+[Русский](https://zdoc.app/ru/Smartuil/Github-Recap) | 
+[中文](https://zdoc.app/zh/Smartuil/Github-Recap)
+
 一个赛博朋克风格的 GitHub 年度总结生成器，帮助你回顾在 GitHub 上的贡献历程。
 
 ![GitHub Recap Preview](images/preview.jpg)
