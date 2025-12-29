@@ -70,9 +70,9 @@ export function RecapApp() {
   const [avatarUrl, setAvatarUrl] = React.useState<string | undefined>(undefined);
 
   React.useEffect(() => {
-    // 客户端挂载后从 localStorage 读取 username
+    // 客户端挂载后从 localStorage 读取 username，如果没有则保持默认值
     const saved = window.localStorage.getItem("recap.username");
-    if (saved) setUsername(saved);
+    if (saved && saved.trim()) setUsername(saved);
     // 清理历史版本写入过的 token，避免误用。
     window.localStorage.removeItem("recap.token");
   }, []);
