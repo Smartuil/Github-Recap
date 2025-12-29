@@ -63,7 +63,7 @@ export function RecapApp() {
   const [pageIndex, setPageIndex] = React.useState(0);
 
   const [year, setYear] = React.useState(DEFAULT_YEAR);
-  const [username, setUsername] = React.useState("");
+  const [username, setUsername] = React.useState("Smartuil");
   // Token 仅保存在内存里（不读写 localStorage）。
   const [token, setToken] = React.useState("");
   const [createdYear, setCreatedYear] = React.useState<number | undefined>(undefined);
