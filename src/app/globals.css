@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+:root {
+  --radius: 0.75rem;
+}
+
+/* Cyberpunk terminal palette (dark by default via <html class="dark">) */
+.dark {
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.96 0 0);
+
+  --card: oklch(0.12 0 0);
+  --card-foreground: oklch(0.96 0 0);
+
+  --popover: oklch(0.12 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+
+  --primary: oklch(0.85 0.11 210);
+  --primary-foreground: oklch(0.12 0 0);
+
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(0.96 0 0);
+
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+
+  --accent: oklch(0.18 0 0);
+  --accent-foreground: oklch(0.96 0 0);
+
+  --destructive: oklch(0.62 0.19 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.85 0.11 210);
+
+  /* custom accents */
+  --cyber-accent: #00e5ff;
+  --cyber-accent-2: #7c3aed;
+  --cyber-grid: rgba(255, 255, 255, 0.04);
+  --cyber-noise: rgba(255, 255, 255, 0.06);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .cyber-accent {
+    color: var(--cyber-accent);
+  }
+
+  .cyber-accent-bg {
+    background: color-mix(in oklab, var(--cyber-accent) 22%, transparent);
+  }
+
+  .cyber-glow {
+    text-shadow:
+      0 0 10px color-mix(in oklab, var(--cyber-accent) 55%, transparent),
+      0 0 28px color-mix(in oklab, var(--cyber-accent) 35%, transparent);
+  }
+
+  .cyber-surface {
+    background:
+      radial-gradient(1200px 700px at 20% 10%, rgba(0, 229, 255, 0.10), transparent 55%),
+      radial-gradient(900px 600px at 85% 25%, rgba(124, 58, 237, 0.08), transparent 55%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 22%),
+      rgba(0, 0, 0, 0.92);
+  }
+
+  .cyber-grid {
+    background-image:
+      linear-gradient(to right, var(--cyber-grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cyber-grid) 1px, transparent 1px);
+    background-size: 38px 38px;
+    mask-image: radial-gradient(700px 520px at 40% 30%, black 10%, transparent 70%);
+  }
+
+  .cyber-scanlines {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.02) 2%,
+      transparent 5%
+    );
+    background-size: 100% 10px;
+    mix-blend-mode: overlay;
+    opacity: 0.45;
+  }
+
+  .cyber-noise {
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 2px),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 3px);
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+  }
+
+  @keyframes cyber-flicker {
+    0%,
+    100% {
+      opacity: 1;
+      filter: none;
+    }
+    45% {
+      opacity: 0.92;
+      filter: saturate(1.1);
+    }
+    50% {
+      opacity: 0.86;
+      filter: saturate(1.35) contrast(1.05);
+    }
+    53% {
+      opacity: 0.96;
+      filter: none;
+    }
+  }
+
+  .cyber-flicker {
+    animation: cyber-flicker 6.5s infinite;
+  }
+}
