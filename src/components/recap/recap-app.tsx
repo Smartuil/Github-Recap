@@ -69,22 +69,24 @@ export function RecapApp() {
   const [createdYear, setCreatedYear] = React.useState<number | undefined>(undefined);
   const [avatarUrl, setAvatarUrl] = React.useState<string | undefined>(undefined);
 
-  // 标记是否已初始化完成，用于触发自动加载
-  const [initialized, setInitialized] = React.useState(false);
-
   React.useEffect(() => {
     // 客户端挂载后从 localStorage 读取 username，如果没有则保持默认值
     const saved = window.localStorage.getItem("recap.username");
     if (saved && saved.trim()) setUsername(saved);
     // 清理历史版本写入过的 token，避免误用。
     window.localStorage.removeItem("recap.token");
-    // 标记初始化完成
-    setInitialized(true);
   }, []);
 
-  // 用户名变化时，自动获取用户基本信息（头像、创建年份）
+  // 用户名变化时，自动获取用户基本信息（头像、创建年份），并重置已加载的数据
   React.useEffect(() => {
     const u = username.trim();
+    
+    // 重置已加载的数据，允许重新加载
+    setRecap(null);
+    setStats(emptyStats(year));
+    setComparison(null);
+    setError(null);
+    
     if (!u) {
       setAvatarUrl(undefined);
       setCreatedYear(undefined);
@@ -100,7 +102,7 @@ export function RecapApp() {
     }, 500); // 防抖 500ms
 
     return () => clearTimeout(timer);
-  }, [username]);
+  }, [username, year]);
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -138,14 +140,6 @@ export function RecapApp() {
       setLoading(false);
     }
   }, [token, username, year]);
-
-  // 初始化完成后，如果有用户名则自动加载一次
-  React.useEffect(() => {
-    if (initialized && username.trim()) {
-      load();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialized]);
 
   const handleStart = React.useCallback(() => {
     setPageIndex(1);
